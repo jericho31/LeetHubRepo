@@ -9,20 +9,21 @@
  */
 class Solution {
     fun oddEvenList(head: ListNode?): ListNode? {
-        var last = ListNode(0)
-        val zero = last
+        if (head?.next?.next == null) return head
+        val evenHead = head.next
         var cur = head
-        while (cur != null) {
-            last.next = ListNode(cur.`val`)
-            last = last.next
-            cur = cur.next?.next
+        while (true) {
+            if (cur!!.next?.next == null) {
+                cur.next?.next = null
+                cur.next = evenHead
+                break
+            }
+            val n2 = cur.next
+            val n3 = n2.next
+            cur.next = n3
+            n2.next = n3.next
+            cur = n3
         }
-        cur = head?.next
-        while (cur != null) {
-            last.next = ListNode(cur.`val`)
-            last = last.next
-            cur = cur.next?.next
-        }
-        return zero.next
+        return head
     }
 }
